@@ -4,8 +4,7 @@ from django.contrib.auth.models import User
 class Customer(models.Model):
     """create customer model based on the default user"""
 
-    user = models.OneToOneField(User, on_delete=models.CASCADE,
-    null=True, blank=True)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=255, null=True)
     email = models.CharField(max_length=255, null=True)
 
@@ -15,7 +14,8 @@ class Customer(models.Model):
 
 class Product(models.Model):
     """create product & check if it digital or not"""
-
+    user = models.ForeignKey(User, on_delete=models.CASCADE,
+    null=True, blank=True)
     name = models.CharField(max_length=255, null=True)
     price = models.FloatField()
     digital = models.BooleanField(default=False, null=True, blank=True)

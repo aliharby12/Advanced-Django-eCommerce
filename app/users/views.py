@@ -4,6 +4,7 @@ from .forms import UserRegisterForm
 
 
 def register(request):
+    """create a function to register user"""
     if request.method == 'POST':
         form = UserRegisterForm(request.POST)
         if form.is_valid():
