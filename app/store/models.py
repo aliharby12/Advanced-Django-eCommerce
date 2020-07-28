@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models.signals import post_save
+from django.dispatch import receiver
+
 
 class Customer(models.Model):
     """create customer model based on the default user"""
@@ -11,6 +14,13 @@ class Customer(models.Model):
     def __str__(self):
         return self.name
 
+@receiver(post_save, sender=User)
+def user_is_created(sender, instance, created, **kwargs):
+    """send a signal to create a customer after creating user"""
+    if created:
+        Customer.objects.create(user=instance)
+    else:
+        instance.customer.save()
 
 class Product(models.Model):
     """create product & check if it digital or not"""
