@@ -15,7 +15,7 @@ from rest_framework.permissions import (IsAdminUser,
                                         )
 from .permissions import IsOwnerOrReadOnly
 from rest_framework.filters import SearchFilter, OrderingFilter
-
+from .pagination import ProductPageNumberPagination, ProductLimitOffsetPagination
 
 @method_decorator(login_required, name='dispatch')
 class ProductListAPIView(ListAPIView):
@@ -24,6 +24,7 @@ class ProductListAPIView(ListAPIView):
     serializer_class = ProductSerializer
     filter_backends = [SearchFilter]
     search_fields = ['user__first_name', 'name', 'price']
+    pagination_class = ProductLimitOffsetPagination
 
 @method_decorator(login_required, name='dispatch')
 class ProductDetailAPIView(RetrieveAPIView):
