@@ -1,4 +1,4 @@
-Django==2.2.0
+Django==2.2.20
 Pillow>=5.3.0,<5.4.0
 django-crispy-forms
 djangorestframework
